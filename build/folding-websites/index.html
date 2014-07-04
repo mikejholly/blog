@@ -1,0 +1,34 @@
+<!DOCTYPE html><html><head><title>Folding Websites</title><meta name="description" content="My second, super-cool, Wintersmith-powered blog."><link href="http://kevinburke.bitbucket.org/markdowncss/markdown.css" rel="stylesheet"></head><body><h1>Folding Websites</h1><time>Sun Feb 05 2012 16:00:00 GMT-0800 (PST)</time><div><p>I&#39;ve been seeing a lot cool experiments with CSS3 transformations in the browser lately and it&#39;s inspired me to do some experimenting of my own. That and I&#39;ve been trying to think of something interesting to present on my blog...</p>
+<p>And where better to find some cool effects to rip off than in OSX? In particular, I think the way the Lion version of Mail expands blocks of quoted text looks pretty nifty and I was wondering if it would be possible to pull off the effect in HTML/CSS.</p>
+<p><img src="http://media.tumblr.com/tumblr_lywgh5j6aw1qzx9nu.png" alt=""></p>
+<p><small><em>The effect in Mail</em></small></p>
+<p>Well it turns out that, thanks to CSS3 Transforms, it is! After a bit of hacking and slicing I wound up creating something that I&#39;m quite happy with. And I figured creating a jQuery plug-in would be a great way to share the love.</p>
+<h3 id="jquery-unfold">jQuery Unfold</h3>
+<p><a href="https://github.com/mikejholly/jquery-unfold">GitHub project page</a></p>
+<p>The result is <em>jQuery Unfold</em>. Now you can do fancy Mail app style unfold effects in your browser! It looks really good in Webkit (Safari and Chrome) and pretty good in Firefox (more info below).</p>
+<p><img src="http://media.tumblr.com/tumblr_lz0duto1Zw1qzx9nu.png" alt=""></p>
+<p><small><em>Tada!</em></small></p>
+<p>Basically the effect works by slicing up a chunk of content and animating the height and rotation of each slice independently. Each slice has multiple wrappers that control the vertical offset of the content relative to that slice. Overall the code isn&#39;t that complex and it only took a touch of math (some basic trig to get the correct wrapper height based on the rotation angle). The browser does almost everything for you.</p>
+<h3 id="usage">Usage</h3>
+<p>To use the effect, just add <code>$(this).unfold()</code> to your click handler after including the script. To customize the animation a bit, pass in custom duration and easing options. You can also chop the content into as many slices as you want.</p>
+<p>Here are some more options:</p>
+<pre class="prettyprint">
+$('article').unfold({
+  easing: 'easingFunction',
+  duration: 1000,
+  slices: 10,
+  perspective: 600,
+  shadow: true
+});
+</pre>
+
+<p><a href="http://mikejholly.github.com/jquery-unfold/">Check out the demo</a></p>
+<h3 id="a-couple-of-tweaks">A Couple of Tweaks</h3>
+<p>After replaying the animation 1,000 times in Mail, I noticed that they make clever use of perspective to enhance effect. Luckily, the CSS3 <code>perspective</code> and <code>perspective-origin</code> properties provide exactly what we need to achieve the same look.</p>
+<p>Another challenge was creating a nice shadow on each slide. Given that the background could be a solid color or an image, I needed a solution that would work in all cases. I ended up duplicating the rotated container and using a CSS3 linear gradient that fades from black to transparent. The shadow layer is then stacked on top of the content. This gives the slice a nice shadow that should look good in most cases (except when the background is a dark solid color).</p>
+<p>It seems like Webkit is outpacing Firefox where CSS transformations are concerned. I ran into a couple of small annoyances while working on this script. I&#39;m not sure if the fix for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=704469">this bug</a> has been included in the most recent version (10), but it seems that Firefox has trouble maintaining the perspective of elements when <code>overflow: hidden</code> is used. Also, the animation just seems clunkier overall on Firefox.</p>
+<h3 id="-lt-p-gt-soup">&lt;P&gt; Soup</h3>
+<p>Because of the way vertical margins collapse, there is a bit of difficulty with slicing up the segments. It should work as expected in most cases, but if you run into double margins or weird popping (when the animation finished) try fiddling with the <code>collapse</code> option (it&#39;s a boolean).</p>
+<h3 id="achievement-unlocked">Achievement Unlocked</h3>
+<p>So there you go, it&#39;s now possible to do awesome OSX style effects in the browser thanks to CSS3 transforms.</p>
+</div></body></html>

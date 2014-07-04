@@ -1,0 +1,43 @@
+<!DOCTYPE html><html><head><title>Making Software Translation Easier</title><meta name="description" content="My second, super-cool, Wintersmith-powered blog."><link href="http://kevinburke.bitbucket.org/markdowncss/markdown.css" rel="stylesheet"></head><body><h1>Making Software Translation Easier</h1><time>Fri Feb 17 2012 16:00:00 GMT-0800 (PST)</time><div><p>If you&#39;ve ever had to translate an application into multiple languages, you&#39;re probably familiar with <a href="http://www.poedit.net/">Poedit</a>. It&#39;s a free cross platform Gettext catalog file editor. We&#39;ve been using the tool for translations at <a href="http://www.strutta.com">Strutta</a> for a while. It&#39;s the best tool for the job (that I know of) but it, unfortunately, suffers from freeware-itis: the interface is clunky; and the error messages are cryptic and frequent. That being said, it&#39;s not a terrible program. I just wanted to make PO editing fun again (just kidding--it was never fun :P)!</p>
+<h3 id="introducing-easypo">Introducing EasyPO</h3>
+<p><a href="http://youtu.be/ZeCZBt2Qgm0">Video demo</a></p>
+<p>And so I made <a href="http://easypo.com">EasyPO</a>. It&#39;s a lightweight app for editing and composing Gettext translations in the browser. You can upload a PO file, make changes, share the URL with others and even watch as they make changes (it uses <a href="http://socket.io/">Socket.IO</a> for this piece)! The URL lives on, and the changes are automatically committed as you make them, so there&#39;s never a need to click <em>Save</em>.</p>
+<p><img src="http://media.tumblr.com/tumblr_lzm3jpUF3U1qzx9nu.png" alt=""></p>
+<p><small><a href="http://easypo.com/edit/4f4065907b351e0127001071">http://easypo.com/edit/4f4065907b351e0127001071</a></small></p>
+<p>Overall, I found the process of designing and building a lightweight web app like this very rewarding. The project was an exercise in simplicity: how simple can I make the interface while keeping things usable? I wrote down the features I wanted the app to have, drew a few sketches, and built it in a few evenings. I had a number of goals from the get-go: I wanted it to be easy; I wanted it to make the overall translation workflow less painful; and, I wanted to be able to keep track of translator progress. I think the app does a good job on all these fronts.</p>
+<h3 id="how-it-works">How it Works</h3>
+<p>If you load up <a href="http://easypo.com">EasyPO.com</a>, you&#39;ll see there&#39;s nothing but a drop target (unless you&#39;re on IE :P) asking you to drag and drop your PO (or POT) file. After doing so, the app will immediately open the edit view from which you can CRUD any of the PO document strings.</p>
+<p>There are only a few buttons exposed in the edit UI: the <em>Info</em> button opens the PO file headers (basically language settings and plural-forms); the <em>Download</em> button generates and downloads (duh) the PO file that you&#39;ve edited/created; and, the <em>Add</em> button let&#39;s you add a new string to the document.</p>
+<p>I&#39;ve also added a support for machine translations via the Google Translate API (the translation quality is pretty good for simple phrases). There&#39;s also a search feature which allows for quick filtering of strings as you type.</p>
+<h3 id="technical-notes">Technical Notes</h3>
+<p>Building the app was a nice diversion and a chance to play with new tools. I&#39;ve been eager to build a complete (albeit small) app using <a href="http://expressjs.com/">Express</a> and <a href="http://documentcloud.github.com/backbone/">Backbone.js</a> for a while. Using these new tools was a lot of fun. I especially enjoyed using Backbone, which does an exceptional job of keeping your Javascript code tidy and terse. I liked the flexibility it offers--you&#39;re not stuck with one particular way of doing things. The approach to event handling was particularly smart.</p>
+<p>I used <a href="https://developer.mozilla.org/en/XMLHttpRequest/FormData">FormData</a> for file uploads. It&#39;s a great next-generation addition to the browser that abstracts away the manual worked you&#39;d normally have to do when posting multipart data with ajax.</p>
+<p>Here&#39;s how it works:</p>
+<pre class="prettyprint">
+var files = e.originalEvent.dataTransfer.files;
+if (files.length &gt; 0) {
+  var data = new FormData();
+  data.append('file', files[0]);
+  $.ajax({
+    url: '/upload',
+    type: 'POST',
+    data: data,
+    dataType: 'json',
+    processData: false,
+    contentType: false,
+    success: function(data) {
+      AppRouter.navigate('edit/' + data._id, true);
+    }
+  });
+}
+</pre>
+
+<p>I also created a couple of Node modules for the project. One is a Gettext PO file library (<a href="https://github.com/mikejholly/node-po">node-po</a>) and the other is a Google Translate API client (<a href="https://github.com/mikejholly/node-google-translate">node-google-translate</a>). They&#39;re both available to npm if anyone is interested in using them.</p>
+<p>As I mentioned, the app uses Socket.IO to alert you of edits, as they&#39;re being made.</p>
+<h3 id="improvements">Improvements</h3>
+<p><a href="http://easypo.com">EasyPO</a> should work flawlessly (aka &quot;it works for me&quot;) in Chrome/Safari/FF/IE9 and pretty well in IE8.</p>
+<p>I&#39;m currently working on integrating the <a href="http://mygengo.com">myGengo</a> API. I&#39;m pretty excited about this as it will allow for quick translations of your strings by <em>actual human translators</em>. Their service isn&#39;t free so I&#39;ll probably have to charge a nominal fee for human translation.</p>
+<p>The largest PO file I&#39;ve tested was about 6,000 lines. The interface becomes a little sluggish when editing files with so many entries, but it&#39;s still usable. I&#39;m probably going to implement smarter paging soon--the app will only display so many entries at once and then intelligently load in subsequent sets.</p>
+<h3 id="all-done">All Done</h3>
+<p>This project was a small side-project that I enjoyed building. If you&#39;ve ever been frustrated editing PO files, I hope this app makes your job easier!</p>
+</div></body></html>
