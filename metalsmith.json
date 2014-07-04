@@ -5,10 +5,11 @@
     "description": "My second, super-cool, Wintersmith-powered blog."
   },
   "plugins": {
-    "metalsmith-markdown": {},
+    "metalsmith-markdown": true,
     "metalsmith-permalinks": {
       "pattern": ":title"
     },
+    "metalsmith-excerpts": true,
     "metalsmith-collections": {
       "posts": {
         "sortBy": "date",
@@ -18,6 +19,10 @@
     "metalsmith-templates": {
       "engine": "jade",
       "directory": "./templates"
+    },
+    "metalsmith-static": {
+      "src": "public",
+      "dest": "."
     }
   }
 }
