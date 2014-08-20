@@ -1,9 +1,12 @@
 extends layout
 
 block content
-  h1 Mike's Web Log
+  img(src='http://i.imgur.com/r2ictsi.jpg')
+  h1 Web Log of Mike Holly
+  p This is some stuff I've written about.
   hr
   for post in posts
     article
       h2
         a(href='/'+post.path)=post.title
+      time=post.date.toDateString()

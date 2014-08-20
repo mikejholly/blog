@@ -9,4 +9,7 @@ clean:
 server: build
 	http-server build
 
+deploy: build
+	cd build; rsync --del -rv . root@mikejholly.com:/srv
+
 .PHONY: build clean

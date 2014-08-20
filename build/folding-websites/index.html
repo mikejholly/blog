@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><title>Folding Websites</title><meta name="description" content="My second, super-cool, Wintersmith-powered blog."><link href="/markdown.css" rel="stylesheet"></head><body><h1>Folding Websites</h1><time>Sun Feb 05 2012 16:00:00 GMT-0800 (PST)</time><div><p>I&#39;ve been seeing a lot cool experiments with CSS3 transformations in the browser lately and it&#39;s inspired me to do some experimenting of my own. That and I&#39;ve been trying to think of something interesting to present on my blog...</p>
+<!DOCTYPE html><html><head><title>Folding Websites</title><meta name="description" content="This is some stuff I've written about."><meta http-equiv="content-type" content="text/html; charset=UTF-8"><link href="/markdown.css" rel="stylesheet"></head><body><h1>Folding Websites</h1><time>Sun Feb 05 2012</time><div><p>I&#39;ve been seeing a lot cool experiments with CSS3 transformations in the browser lately and it&#39;s inspired me to do some experimenting of my own. That and I&#39;ve been trying to think of something interesting to present on my blog...</p>
 <p>And where better to find some cool effects to rip off than in OSX? In particular, I think the way the Lion version of Mail expands blocks of quoted text looks pretty nifty and I was wondering if it would be possible to pull off the effect in HTML/CSS.</p>
 <p><img src="http://media.tumblr.com/tumblr_lywgh5j6aw1qzx9nu.png" alt=""></p>
 <p><small><em>The effect in Mail</em></small></p>
@@ -31,4 +31,12 @@ $('article').unfold({
 <p>Because of the way vertical margins collapse, there is a bit of difficulty with slicing up the segments. It should work as expected in most cases, but if you run into double margins or weird popping (when the animation finished) try fiddling with the <code>collapse</code> option (it&#39;s a boolean).</p>
 <h3 id="achievement-unlocked">Achievement Unlocked</h3>
 <p>So there you go, it&#39;s now possible to do awesome OSX style effects in the browser thanks to CSS3 transforms.</p>
-</div></body></html>
+</div><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-28951014-1', 'auto');
+ga('send', 'pageview');
+
+</script></body></html>

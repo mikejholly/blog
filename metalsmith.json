@@ -1,8 +1,8 @@
 {
   "source": "./contents",
   "metadata": {
-    "title": "My Wintersmith-Powered Blog",
-    "description": "My second, super-cool, Wintersmith-powered blog."
+    "title": "Web Log of Mike Holly",
+    "description": "This is some stuff I've written about."
   },
   "plugins": {
     "metalsmith-markdown": true,
