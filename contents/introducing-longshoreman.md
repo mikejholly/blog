@@ -5,7 +5,7 @@ date: 2014-08-20
 template: post.jade
 ---
 
-![Longshoreman](http://i.imgur.com/4vkVHdI.png)
+Longshoreman is a Docker container orchestration system that facilitates the deployment of Docker-based application instances across multiple server nodes. It was created at [Wayfinder](http://wayfinder.co) to help launch our micro-service-based infrastructure.
 
 ## Docker Deployment Landscape
 
@@ -19,9 +19,11 @@ So naturally, we looked to Docker for a solution. Removing the need for deployme
 
 After deciding that Docker was the right tool for the job we started exploring deployment options. I spent a few days researching tools and experimenting with several options ([check out this Hackpad](https://hackpad.com/Infrastructure-ox7KgPtqwIa) for my findings). The biggest contender was [Deis](http://deis.io), a very promising solution based on CoreOS and Docker. I ran into a few issues with Deis (outlined in the Hackpad above) that gave me the impression it wasn't quite ready for prime time.
 
+<img height="180" style="float:right;" src="http://i.imgur.com/RuqDnPk.png">
+
 ## Enter Longshoreman
 
-And so, after some consideration, we decided to roll our own Docker deployment solution. It's a complete deployment system written in Node.js—we call it [Longshoreman](http://longshoreman.io).
+And so, after some consideration, we decided to roll our own Docker deployment solution. It's a complete container deployment system written in Node.js—we call it [Longshoreman](http://longshoreman.io).
 
 As of right now, Longshoreman does three things:
 
@@ -29,7 +31,7 @@ As of right now, Longshoreman does three things:
 2. It facilitates the routing of web traffic through to these container instances.
 3. It allows developers to administer this Docker-powered cluster with a handy CLI.
 
-Here's a diagram to help explain how it works.
+Here's a diagram to help illustrate how it works.
 
 ![Diagram](http://i.imgur.com/I0POpX4.png)
 
@@ -37,6 +39,4 @@ You can read more detail about each component at the [project page](http://longs
 
 ## More to Come
 
-We're working away on some exciting new features that will take Longshoreman to the next level. Intellegent scaling and distribution of services, the ability to snapshot, export and import your container setup, and a DNS option for service discovery are on the horizon. We've also been experimenting with Continuous Deployment workflows with [CircleCI](http://www.circleci.com) which we'll be sharing soon.
-
-
+We're working away on some exciting new features that will take Longshoreman to the next level. Intelligent scaling and distribution of services, the ability to snapshot, export and import your container setup, and a DNS option for service discovery are on the horizon. We've also been experimenting with Continuous Deployment work-flows with [CircleCI](http://www.circleci.com) which we'll be sharing soon.

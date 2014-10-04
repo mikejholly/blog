@@ -10,11 +10,11 @@ mikejholly@gmail.com / 604-764-8865
 
 ## Overview
 
-I have exceptional breadth and depth when it comes to software and product design. I started my career writing C and Java (3 years) and I've been working with PHP (12 years), Ruby (7 years) and JavaScript (12 years) for some time.
+I have exceptional breadth and depth when it comes to software development and product design. I started my career writing C and Java (3 years) and I've been working with PHP (12 years), Ruby (7 years), Python (3 years) and JavaScript (12 years) for some time.
 
 For 5 years (2008-2013), I was the lead engineer (and later CTO) at Strutta, a social promotions platform. During my time there I built the majority of the product and infrastructure (promotion builder, applications and analytics suite). The company was recently acquired for $10M.
 
-I'm a programming language enthusiast and I've studied functional languages as well (Lisp, Haskell, Scala etc.). I'm currently very excited about the Node.js community (2 years) and I've written a few high-scale services and web applications with it. On the JVM, I prefer Clojure or Scala.
+I'm a programming language enthusiast and I've studied functional languages as well (Lisp, Haskell, Scala etc.). I'm currently very excited about the Node.js community (3 years) and I've written a few high-scale services and web applications with it. On the JVM, I prefer Clojure (1 year).
 
 ## Professional Experience
 
@@ -22,10 +22,10 @@ I'm a programming language enthusiast and I've studied functional languages as w
 
 #### Chief Architect (November 2013 - Present)
 
-* Working remotely for New York startup (founded by Betaworks & First Round)
+* Working remotely for New York startup (funded by Betaworks & First Round)
 * Created open source Docker deployment system (http://github.com/longshoreman)
-* Designed and writing Node.js and Python microservices with Docker and AWS
-* Wrote font-end "editor" application in Ember.js
+* Designed and wrote Node.js and Python microservices with Docker and AWS
+* Wrote font-end "editor" application in React
 * Wrote NLP text analysis service using Python and NLTK
 * Wrote Bayesian classifier in Python
 * Wrote recommendation service using Elastic Search and Node.js
@@ -37,14 +37,14 @@ I'm a programming language enthusiast and I've studied functional languages as w
 
 #### CTO (January 2013 - November 2013)
 
-* Led team of 6 engineers and designers.
-* Moved backend components to separate Node.js services (SOA / microservices).
-* Wrote thumbnail processing service using Node.js, ImageMagick, and Redis.
-* Wrote screenshotting service using Node.js, PhantomJS and Redis.
-* Redesigned and implemented payment processing backend using Stripe and Mixpanel.
-* Designed and deployed LAMP infrastructure to support 1.5 billion requests per month.
+* Led team of 6 engineers and designers
+* Moved backend components to separate Node.js services (SOA / microservices)
+* Wrote thumbnail processing service using Node.js, ImageMagick, and Redis
+* Wrote screenshotting service using Node.js, PhantomJS and Redis
+* Redesigned and implemented payment processing backend using Stripe and Mixpanel
+* Designed and deployed LAMP infrastructure to support 1.5 billion requests per month
 * Lead product development with Creative Director
-* Gathered feedback from sales and marketing departments.
+* Gathered feedback from sales and marketing departments
 
 #### Lead Engineer (June 2012 - January 2013)
 

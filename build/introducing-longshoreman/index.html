@@ -1,23 +1,24 @@
-<!DOCTYPE html><html><head><title>Introducing Longshoreman</title><meta name="description" content="This is some stuff I've written about."><meta http-equiv="content-type" content="text/html; charset=UTF-8"><link href="/markdown.css" rel="stylesheet"></head><body><h1>Introducing Longshoreman</h1><time>Tue Aug 19 2014</time><div><p><img src="http://i.imgur.com/4vkVHdI.png" alt="Longshoreman"></p>
+<!DOCTYPE html><html><head><title>Introducing Longshoreman</title><meta name="description" content="This is some stuff I've written about."><meta http-equiv="content-type" content="text/html; charset=UTF-8"><link href="/markdown.css" rel="stylesheet"></head><body><h1>Introducing Longshoreman</h1><time>Tue Aug 19 2014</time><div><p>Longshoreman is a Docker container orchestration system that facilitates the deployment of Docker-based application instances across multiple server nodes. It was created at <a href="http://wayfinder.co">Wayfinder</a> to help launch our micro-service-based infrastructure.</p>
 <h2 id="docker-deployment-landscape">Docker Deployment Landscape</h2>
 <p>Docker is truly an incredible new technology. Watching the project&#39;s growth over the last year or so has been extremely exciting for me. I&#39;ve always felt that deployment with configuration management tools like Chef, Puppet or Ansible has been a bit verbose and onerous and Docker&#39;s notion of immutable infrastructure seems like a quantum leap in the right direction to me.</p>
 <p>We&#39;ve also been drinking the micro-service Kool-Aid at <a href="http://wayfinder.co">Wayfinder</a> for the last several months. Moving away from a monolithic design toward a micro-service approach has been incredibly rewarding both as a developer and as a team. Our software is simpler, more scalable and things get done more quickly and with less debate (I suspect this is a side-effect of extremely simple components).</p>
 <p>Like many, we had been using Heroku to deploy our production services. But Heroku is at the same time both very simple and quite limited. As someone who has deployed systems at scale using AWS, I longed for more power and control. Heroku provides flexibility via tools like Build Packs, but I found these to be rather irritating to configure and customize. (I&#39;m also lazy—which I&#39;ve heard is a virtue amongst developers).</p>
 <p>So naturally, we looked to Docker for a solution. Removing the need for deployment and configuration tools like Chef or Puppet, while providing rich control over our application environments seemed like a big win. The ability to move to different infrastructure service providers based on cost was extremely desirable as well.</p>
 <p>After deciding that Docker was the right tool for the job we started exploring deployment options. I spent a few days researching tools and experimenting with several options (<a href="https://hackpad.com/Infrastructure-ox7KgPtqwIa">check out this Hackpad</a> for my findings). The biggest contender was <a href="http://deis.io">Deis</a>, a very promising solution based on CoreOS and Docker. I ran into a few issues with Deis (outlined in the Hackpad above) that gave me the impression it wasn&#39;t quite ready for prime time.</p>
+<p><img height="180" style="float:right;" src="http://i.imgur.com/RuqDnPk.png"></p>
 <h2 id="enter-longshoreman">Enter Longshoreman</h2>
-<p>And so, after some consideration, we decided to roll our own Docker deployment solution. It&#39;s a complete deployment system written in Node.js—we call it <a href="http://longshoreman.io">Longshoreman</a>.</p>
+<p>And so, after some consideration, we decided to roll our own Docker deployment solution. It&#39;s a complete container deployment system written in Node.js—we call it <a href="http://longshoreman.io">Longshoreman</a>.</p>
 <p>As of right now, Longshoreman does three things:</p>
 <ol>
 <li>It manages the deployment of Docker containers to a collection of server nodes.</li>
 <li>It facilitates the routing of web traffic through to these container instances.</li>
 <li>It allows developers to administer this Docker-powered cluster with a handy CLI.</li>
 </ol>
-<p>Here&#39;s a diagram to help explain how it works.</p>
+<p>Here&#39;s a diagram to help illustrate how it works.</p>
 <p><img src="http://i.imgur.com/I0POpX4.png" alt="Diagram"></p>
 <p>You can read more detail about each component at the <a href="http://longshoreman.io">project page</a>.</p>
 <h2 id="more-to-come">More to Come</h2>
-<p>We&#39;re working away on some exciting new features that will take Longshoreman to the next level. Intellegent scaling and distribution of services, the ability to snapshot, export and import your container setup, and a DNS option for service discovery are on the horizon. We&#39;ve also been experimenting with Continuous Deployment workflows with <a href="http://www.circleci.com">CircleCI</a> which we&#39;ll be sharing soon.</p>
+<p>We&#39;re working away on some exciting new features that will take Longshoreman to the next level. Intelligent scaling and distribution of services, the ability to snapshot, export and import your container setup, and a DNS option for service discovery are on the horizon. We&#39;ve also been experimenting with Continuous Deployment work-flows with <a href="http://www.circleci.com">CircleCI</a> which we&#39;ll be sharing soon.</p>
 </div><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
