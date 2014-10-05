@@ -1,0 +1,106 @@
+<!DOCTYPE html><html><head><title>Create Your Own Heroku in 10 Minutes</title><meta name="description" content="This is some stuff I've written about."><meta http-equiv="content-type" content="text/html; charset=UTF-8"><link href="/markdown.css" rel="stylesheet"></head><body><h1>Create Your Own Heroku in 10 Minutes</h1><time>Fri Oct 03 2014</time><div><p>So maybe you&#39;ve outgrown Heroku, or you want more power, flexibility or control. Or, maybe you just want to tell your friends you built your own Heroku in 10 minutes. Whatever your reasons, I&#39;d love you show you how simple it can be to create a Heroku-like system using EC2, Docker and Longshoreman. With that said, let&#39;s get going.</p>
+<h2 id="longshoreman">Longshoreman</h2>
+<p>Longshoreman is a deployment system that allows you to build a Docker-powered app cluster on multiple machines. Some of it&#39;s features include: zero-downtime rollouts, deployment history and rollbacks, app instance scaling and more great stuff. <a href="/introducing-longshoreman">Read more about Longshoreman</a> or <a href="http://longshoreman.io">visit the GitHub page</a>.</p>
+<h2 id="create-a-load-balancer">Create a Load Balancer</h2>
+<p>The load balancer is the main entry point for web traffic into the system. We&#39;re using AWS&#39;s Elastic Load Balancer in this example.</p>
+<ol>
+<li>Begin by giving your LB a name and configuring its open ports. You can configure SSL here too if you&#39;d like.</li>
+</ol>
+<p><img height="500" src="http://i.imgur.com/kKMIg64.png"></p>
+<ol>
+<li>Make sure your LB is configured to ping the <code>/_ping</code> location for the health check. Longshoreman will respond with 200 if it&#39;s alive.</li>
+</ol>
+<p><img height="500" src="http://i.imgur.com/JktIsvO.png"></p>
+<ol>
+<li>Create a new security group for your LB.</li>
+</ol>
+<p><img height="500" src="http://i.imgur.com/X2ZT4KO.png"></p>
+<ol>
+<li>Skip the next few steps and launch your load balancer.</li>
+</ol>
+<h2 id="create-a-cluster-node">Create a Cluster Node</h2>
+<ol>
+<li><p>Let&#39;s stand up a couple of EC2 instances. For this example we&#39;re going to avoid Amazon&#39;s VPC option for simplicity&#39;s sake. However it&#39;s can be a good idea to use private networking when it&#39;s available (we do in production).</p>
+</li>
+<li><p>Select the HVM version of Ubuntu 14.04.</p>
+</li>
+</ol>
+<p><img height="500" src="http://i.imgur.com/cxv3ru8.png"></p>
+<ol>
+<li>We&#39;ll select m3.large instances so our apps don&#39;t explode with a few users.</li>
+</ol>
+<p><img height="500" src="http://i.imgur.com/f8jJPCi.png"></p>
+<ol>
+<li>Next, Add more storage so Docker has some room to store it&#39;s container images.</li>
+</ol>
+<p><img height="500" src="http://i.imgur.com/XcbsrAP.png"></p>
+<ol>
+<li>Give your special snowflake a name.</li>
+</ol>
+<p><img height="500" src="http://i.imgur.com/1XJ6ECq.png"></p>
+<ol>
+<li>Configure the instance&#39;s security group to allow web traffic from the load balancer only. The ports 8000-8999 are special ports that Longshoreman uses to provision app instances.</li>
+</ol>
+<p><img height="500" src="http://i.imgur.com/dtHnxAv.png"></p>
+<ol>
+<li>Launch your instance!</li>
+</ol>
+<h2 id="launch-a-redis-server">Launch a Redis server</h2>
+<p>Longshoreman stores the state of the cluster in Redis. I&#39;m going to use a micro EC2 instance for this example. You can also use the AWS ElastiCache or RedisLabs for a quick solution.</p>
+<ol>
+<li><p>Launch a micro instance (I&#39;m using Ubuntu 14.04 here).</p>
+</li>
+<li><p>Give it a bit more storage than the default (I used 32GB).</p>
+</li>
+<li><p>Configure the Security Group to allow connections to the default Redis port of 6379. Connections should only be allowed from the <code>lsm-node</code> Security Group.</p>
+</li>
+</ol>
+<p><img height="500" src="http://i.imgur.com/FkIgWTv.png"></p>
+<ol>
+<li>Launch and install Redis with <code>sudo apt-get install redis-server</code>. Save the EC2 public DNS name for the next step.</li>
+</ol>
+<h2 id="configure-docker-longshoreman">Configure Docker &amp; Longshoreman</h2>
+<ol>
+<li><p>SSH into your new instance. <code>sudo apt-get update</code>.</p>
+</li>
+<li><p>Install Docker with <code>curl -sSL https://get.docker.io/ubuntu/ | sudo sh</code>.</p>
+</li>
+<li><p>Enable the Docker Remote API by adding the following line to <code>/etc/default/docker</code>.</p>
+</li>
+</ol>
+<p><code>DOCKER_OPTS=&quot;-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock&quot;</code></p>
+<p><img height="250" src="http://i.imgur.com/GvHBklo.png"></p>
+<ol>
+<li><p>Restart Docker with <code>sudo service docker restart</code>.</p>
+</li>
+<li><p>Download and run Longshoreman using the following command:</p>
+</li>
+</ol>
+<p><code>sudo docker run -d -p 80:80 -e REDIS_HOST=$REDIS_HOST -e REDIS_PORT=6379 -e CONTROLLER_HOST=$CONTROLLER_HOST longshoreman/longshoreman</code></p>
+<p>Where <code>$REDIS_HOST</code> is your Redis hostname or IP and <code>$CONTROLLER_HOST</code> is your desired Longshoreman controller location (e.g., lsm.domain.com).</p>
+<h2 id="quick-review">Quick Review</h2>
+<p>We now have a fully operational Docker powered application cluster managed by Longshoreman. But it can&#39;t really do anything without an application, so let&#39;s push a very contrived example app to the cluster.</p>
+<h2 id="deploy-an-application">Deploy an application</h2>
+<ol>
+<li><p>Run <code>longshoreman init</code> to configure your credentials. Enter the Longshoreman controller domain and your token. The token is auto-generated and is stored in Redis. To retrieve your token, run <code>redis-cli $REDIS_HOST GET token</code>.</p>
+</li>
+<li><p>To make Longshoreman aware of your nodes run <code>longshoreman hosts:add &lt;host-ip&gt;</code>.</p>
+</li>
+<li><p>Add a new service or application to your cluster <code>longshoreman apps:add demo.domain.com</code>.</p>
+</li>
+<li><p><code>longshoreman --app my.app.domain envs:set NAME=Mike</code> to configure your application&#39;s runtime settings.</p>
+</li>
+<li><p><code>longshoreman --app my.app.domain deploy my.docker.reg/repo:tag</code> to deploy the first version of your application.</p>
+</li>
+<li><p>Point your domain to your load balancer&#39;s CNAME and Bob&#39;s your uncle.</p>
+</li>
+</ol>
+</div><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-28951014-1', 'auto');
+ga('send', 'pageview');
+
+</script></body></html>
