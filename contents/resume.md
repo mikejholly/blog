@@ -4,7 +4,7 @@ template: page.jade
 
 # Mike Holly
 
-mikejholly@gmail.com / 604-764-8865
+mikejholly@gmail.com
 
 ------------
 
