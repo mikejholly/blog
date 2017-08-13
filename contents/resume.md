@@ -8,15 +8,45 @@ mikejholly@gmail.com
 
 ------------
 
-## Overview
-
-I have exceptional breadth and depth when it comes to software development and product design. I started my career writing C and Java (3 years) and I've been working with PHP (12 years), Ruby (7 years), Python (3 years) and JavaScript (12 years) for some time.
-
-For 5 years (2008-2013), I was the lead engineer (and later CTO) at Strutta, a social promotions platform. During my time there I built the majority of the product and infrastructure (promotion builder, applications and analytics suite). The company was recently acquired for $10M.
-
-I'm a programming language enthusiast and I've studied functional languages as well (Lisp, Haskell, Scala etc.). I'm currently very excited about the Node.js community (3 years) and I've written a few high-scale services and web applications with it. On the JVM, I prefer Clojure (1 year).
-
 ## Professional Experience
+
+### DigitalOcean
+
+#### Senior Software Enginner and Tech Lead (May 2016 - Present)
+
+* Regular fixture on the interview panel (involved in dozens of code reviews and in-person interviews)
+* Helped lead effort to decompose monolithic apps into a microservice architecture
+* Participated in Tech Lead panel to help define and set technical direction
+* Designed and implemented Spaces (Object Storage) product backend ($100M+ projected revenue)
+* Implemented several Go microservices as part of large refactoring effort
+
+#### Software Engineer (September 2015 - May 2016)
+
+* Introduced Kafka to the company (first user, consulted with other teams)
+* Led effort to move towards distributed Pub/Sub using Kafka (custom libraries in Ruby)
+* Built several features for Teams V2 (used by 40,000 teams)
+* Led an effort to deconstruct a Rails app into a single page app with API
+* Implemented several other features in Ruby/Rails and Go
+
+### Zoomer
+
+#### Lead Engineer—Routing (April 2015 - September 2015)
+
+* Led architecture and development on automated routing engine (Ruby, EC2, SQS)
+* Experimented with several VRP optimization techniques (heuristics and solvers)
+* Implemented a Ruby native extension (C) for a custom set partition algorithm
+* Built driving distance estimation system for VRP application
+* Led team of 3 high performing engineers on AI team
+* Built delivery driver assignment suggestions feature
+
+#### Senior Engineer—Routing (January 2015 - April 2015)
+
+* Completely rebuilt Driver Awareness application (Ruby, Sinatra)
+* Worked with dispatchers and leadership to define requirements
+* Worked on several features for routing engine
+* Performance tuning and profiling
+* Built high frequency geo-location web service used to collect & retrieve driver positions
+* Deployment to AWS (EC2, CloudFormation)
 
 ### Wayfinder
 
@@ -94,14 +124,14 @@ I'm a programming language enthusiast and I've studied functional languages as w
 
 ## Education
 
-### UBC Computer Science (2003-2004)
+### UBC Computer Science (2003-2005)
 * Top 1 percent of high-school applicants
 * $20,000 in academic scholarships
+* 4 semesters in Computer Science department towards BSc
 
-## Additional Skills
+## Character
 
 * Extremely driven, self-starter
-* Extremely passionate about technology, the Internet and building products
 * Exceptionally fast learner (autodidact)
 * Positive, fun and creative
 * Thrives in a high performing team
