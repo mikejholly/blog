@@ -106,21 +106,9 @@ mikejholly@gmail.com
 
 ### Freelance Work
 
-#### Herschel Supply Co. (June 2013 - September 2013)
-
-* Implemented custom payment form and recurring billing for Drupal website
-* Maintain foodbank.bc.ca servers
-
-#### SelectNY (August 2011 - September 2011)
-
-* Optimized selectny.com JS performance using preloading techniques
-* Created video reel that was dynamically assembled from hundreds of separate clips in HTML5 and JavaScript
-
-#### The Sound Research (November 2009 - November 2010)
-
-* Developed customized online qualitative research platform using Drupal
-* Gathered requirements and documented software specifications
-* The product is used regularly by Fortune 100 brands and is the company's primary revenue source
+* Herschel Supply Co. (June 2013 - September 2013)
+* SelectNY (August 2011 - September 2011)
+* The Sound Research (November 2009 - November 2010)
 
 ## Education
 
